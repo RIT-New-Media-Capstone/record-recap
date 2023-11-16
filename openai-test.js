@@ -1,15 +1,24 @@
 import OpenAI from "openai";
+import fs from "fs";
+import ffmpeg from "fluent-ffmpeg";
+import ffmpegPath from "@ffmpeg-installer/ffmpeg";
+
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 const openai = new OpenAI();
 
-const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages:[
-        {"role": "system", "content": "You will be provided with a description of a mood, and your task is to generate the CSS code for a color that matches it. Write your output in json with a single key called 'css_code'."},
-        {"role": "user", "content": "Blue sky at dusk."},
-      ],
-    temperature: 0,
-    max_tokens: 1024,
-});
+async function transcribeAudio() {
+    const transcript = await openai.audio.transcriptions.create({
+        model: "whisper-1",
+        file: fs.createReadStream("TestRecording.m4a"),
+        // promt: "Transcribe the following audio recording and style it into a haiku:",
+    });
+    return transcript.text;
+}
 
-console.log(response.choices[0].message);
+async function main() {
+    const transcription = await transcribeAudio();
+    console.log('Transcription:', transcription);
+}
+
+main();
