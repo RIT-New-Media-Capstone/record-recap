@@ -1,0 +1,27 @@
+{
+  "name": "record-recap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RIT-New-Media-Capstone/record-recap.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RIT-New-Media-Capstone/record-recap/issues"
+  },
+  "homepage": "https://github.com/RIT-New-Media-Capstone/record-recap#readme",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "dotenv": "^16.3.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "mic": "^2.1.2",
+    "openai": "^4.19.0"
+  }
+}
