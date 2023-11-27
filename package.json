@@ -19,5 +19,8 @@
   "homepage": "https://github.com/RIT-New-Media-Capstone/record-recap#readme",
   "dependencies": {
     "openai": "^4.19.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
   }
 }
