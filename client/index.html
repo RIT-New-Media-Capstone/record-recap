@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title> Record Recap </title>
+	<script src="openai-test.js"></script>
+
+	<link href="/dist/output.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="content" class="grid grid-cols-2 gap-3">
+		<div class="summaryRequest h-screen p-3 bg-blue-200">
+			<div id="audioRecorder" class="w-full h-12">
+				<p>recorder</p>
+				<button id="recordBtn"> Start recording</button>
+			</div>
+
+			<div id="summaryStyle" class="mt-2 flex flex-row">
+				<p>I want to get a </p>
+				<select id="lengthSelect"
+					class="w-16 px-2 mx-2 appearance-none rounded-none border-0 border-b-4 border-fuchsia-700">
+					<option value="short">short</option>
+					<option value="medium">medium</option>
+					<option value="long">long</option>
+				</select>
+				<p>,</p>
+				<select id="styleSelect"
+					class="w-20 px-2 mx-2 appearance-none rounded-none border-0 border-b-4 border-fuchsia-700">
+					<option value="regular">regular</option>
+					<option value="rap">rap</option>
+					<option value="yoda">Yoda</option>
+				</select>
+				<p>style summary in </p>
+				<select id="formSelect"
+					class="w-28 px-2 mx-2 appearance-none rounded-none border-0 border-b-4 border-fuchsia-700">
+					<option value="paragraph">paragraph</option>
+					<option value="bulletPoint">bullet point</option>
+				</select>
+				<p> style.</p>
+			</div>
+
+			<div class="mt-8">
+				<button id='summarizeBtn'
+					class="px-4 py-1 bg-fuchsia-700 rounded-md text-fuchsia-100 font-bold">Summarize!</button>
+			</div>
+		</div>
+
+		<div id="summaryResponse" class="bg-purple-200 border-2 rounded-md border-slate-500 h-screen">
+
+		</div>
+	</div>
+
+</body>
+
+</html>
