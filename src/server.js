@@ -8,6 +8,8 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
     '/': responses.getIndex,
     '/dist/output.css': responses.getCss,
+    '/openai-test.js': responses.getJs,
+    '/summarize': responses.summarizeTranscript,
 };
 
 const onRequest = (request, response) => {

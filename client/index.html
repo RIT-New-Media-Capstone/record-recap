@@ -7,14 +7,18 @@
 	<script src="openai-test.js"></script>
 
 	<link href="/dist/output.css" rel="stylesheet">
+
 </head>
 
 <body>
 	<div id="content" class="grid grid-cols-2 gap-3">
-		<div class="summaryRequest h-screen p-3 bg-blue-200">
-			<div id="audioRecorder" class="w-full h-12">
+		<div class="summaryRequest h-screen p-3 ">
+			<div id="audioRecorder" class="w-full h-12 my-4">
 				<p>recorder</p>
-				<button id="recordBtn"> Start recording</button>
+				<button id="recordBtn" class="px-4 py-1 bg-fuchsia-700 rounded-md text-fuchsia-100 font-bold"> Start
+					recording</button>
+				<button id="stopRecordBtn" class="px-4 py-1 bg-fuchsia-700 rounded-md text-fuchsia-100 font-bold"> Stop
+					recordinggg</button>
 			</div>
 
 			<div id="summaryStyle" class="mt-2 flex flex-row">
@@ -52,6 +56,27 @@
 		</div>
 	</div>
 
+	<script>
+		const summaryResponse = document.getElementById('summaryResponse');
+
+		summaryResponse.addEventListener('click', async () => {
+			//send dropdown to summarize endpoint
+
+			//make fetch request
+			const str = `/summarize?length=${document.getElementById('lengthSelect').value}&style=${document.getElementById('styleSelect').value}&form=${document.getElementById('formSelect').value}`;
+
+			const response = await fetch(str, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			const data = await response.json();
+
+			summaryResponse.innerHTML = data.summary;
+		});
+	</script>
 </body>
 
 </html>

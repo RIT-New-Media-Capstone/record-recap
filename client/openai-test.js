@@ -1,13 +1,21 @@
 // Following tutorial to do Speech-to-Text in Node.js from 
 // https://www.codingthesmartway.com/speech-to-text-use-nodejs-and-openai-whisper-api-to-record-transcribe-in-one-step/
 
-import OpenAI from "openai";
-import fs from 'fs';
-import ffmpeg from 'fluent-ffmpeg';
-import mic from 'mic';
-import { Readable } from 'stream';
-import ffmpegPath from '@ffmpeg-installer/ffmpeg';
-import { exec } from 'child_process';
+const OpenAI = require('openai-api');
+const fs = require('fs');
+const ffmpeg = require('fluent-ffmpeg');
+const mic = require('mic');
+const { Readable } = require('stream');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg');
+const { exec } = require('child_process');
+
+// import OpenAI from "openai";
+// import fs from 'fs';
+// import ffmpeg from 'fluent-ffmpeg';
+// import mic from 'mic';
+// import { Readable } from 'stream';
+// import ffmpegPath from '@ffmpeg-installer/ffmpeg';
+// import { exec } from 'child_process';
 
 //variables
 const recordBtn = document.getElementById('recordBtn');
@@ -115,3 +123,10 @@ const main = async () => {
 };
 
 window.onload = main;
+
+module.exports = {
+    recordAudio,
+    transcribeAudio,
+    summarizeTranscript,
+    main,
+};
