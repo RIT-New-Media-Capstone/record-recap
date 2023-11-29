@@ -1,7 +1,7 @@
 // Following tutorial to do Speech-to-Text in Node.js from 
 // https://www.codingthesmartway.com/speech-to-text-use-nodejs-and-openai-whisper-api-to-record-transcribe-in-one-step/
 
-const OpenAI = require('openai-api');
+const OpenAI = require('openai');
 const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
 const mic = require('mic');
@@ -18,9 +18,9 @@ const { exec } = require('child_process');
 // import { exec } from 'child_process';
 
 //variables
-const recordBtn = document.getElementById('recordBtn');
-const summarizeBtn = document.getElementById('summarizeBtn');
-const summaryDiv = document.getElementById('summaryResponse');
+// const recordBtn = document.getElementById('recordBtn');
+// const summarizeBtn = document.getElementById('summarizeBtn');
+// const summaryDiv = document.getElementById('summaryResponse');
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -89,16 +89,18 @@ async function transcribeAudio(file) {
 // and returns the summary as a string.
 // Param: name of the file containing the text to summarize, formate of how to summarize
 async function summarizeTranscript(transcript, format) {
-    const sum = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
-        messages: [
-            { "role": "system", "content": format },
-            { "role": "user", "content": transcript }
-        ],
-        temperature: 0,
-        max_tokens: 1024,
-    });
-    return sum.choices[0].message.content;
+    let test = "hi";
+    return test;
+    // const sum = await openai.chat.completions.create({
+    //     model: "gpt-3.5-turbo",
+    //     messages: [
+    //         { "role": "system", "content": format },
+    //         { "role": "user", "content": transcript }
+    //     ],
+    //     temperature: 0,
+    //     max_tokens: 1024,
+    // });
+    // return sum.choices[0].message.content;
 }
 
 // Main function
@@ -106,23 +108,23 @@ async function summarizeTranscript(transcript, format) {
 const main = async () => {
     const audioFilename = 'recorded_audio.wav'; // name of the file where audio will be stored
 
-    recordBtn.addEventListener('click', async () => {
-        console.log('Recording...');
-        await recordAudio(audioFilename); // record the audio and save to the file name
-    });
+    // recordBtn.addEventListener('click', async () => {
+    //     console.log('Recording...');
+    //     await recordAudio(audioFilename); // record the audio and save to the file name
+    // });
 
-    summarizeBtn.addEventListener('click', async () => {
-        const transcription = await transcribeAudio(audioFilename); // transcribe the audio
-        console.log('Transcription: ' + transcription);
+    // summarizeBtn.addEventListener('click', async () => {
+    //     // const transcription = await transcribeAudio(audioFilename); // transcribe the audio
+    //     console.log('Transcription: ' + transcription);
 
-        const sum = await summarizeTranscript(transcription, format);
-        console.log('Summary:', sum);
+    //     // const sum = await summarizeTranscript(transcription, format);
+    //     console.log('Summary:', sum);
 
-        summaryDiv.innerHTML = sum;
-    });
+    //     // summaryDiv.innerHTML = sum;
+    // });
 };
 
-window.onload = main;
+// window.onload = main;
 
 module.exports = {
     recordAudio,

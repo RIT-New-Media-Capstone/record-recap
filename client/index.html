@@ -57,10 +57,11 @@
 	</div>
 
 	<script>
-		const summaryResponse = document.getElementById('summaryResponse');
+		const summarizeBtn = document.getElementById('summarizeBtn');
 
-		summaryResponse.addEventListener('click', async () => {
+		summarizeBtn.addEventListener('click', async () => {
 			//send dropdown to summarize endpoint
+			console.log('clicked');
 
 			//make fetch request
 			const str = `/summarize?length=${document.getElementById('lengthSelect').value}&style=${document.getElementById('styleSelect').value}&form=${document.getElementById('formSelect').value}`;
@@ -71,11 +72,18 @@
 					'Content-Type': 'application/json'
 				}
 			});
+			console.log("got res");
 
-			const data = await response.json();
+			handleResponse(response);
 
-			summaryResponse.innerHTML = data.summary;
+			// summaryResponse.innerHTML = data.summary;
 		});
+		const handleResponse = async (response)=>{
+			console.log("handling response");
+			const data = await response.json();
+			console.log(data);
+			console.log("got data");
+		}
 	</script>
 </body>
 

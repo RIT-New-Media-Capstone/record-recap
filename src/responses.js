@@ -1,5 +1,5 @@
 const fs = require('fs'); // pull in the file system module
-import * as openai from '../client/openai-test';
+const openai = require('../client/openai-test');
 
 const index = fs.readFileSync(`${__dirname}/../client/index.html`);
 const css = fs.readFileSync(`${__dirname}/../dist/output.css`);
@@ -37,7 +37,17 @@ const summarizeTranscript = async (request, response) => {
     //parse params out of string
     const params = request.url.split('?')[1].split('&');
     console.log(params);
-    openai.summarizeTranscript(params[0], params[1]);
+    // let formae = "Summarize content you are provided in 2 bullet points.";
+    let formate = `Provide a ${params[0]} summary of the content you are provided in ${params[2]} style ${params[1]}.`;
+    // console.log(formate);
+    let res = {
+        "formate": formate,
+        "url": request.url,
+    };
+    response.writeHead(200, {"Content-Type": "application/json"});
+    response.write(JSON.stringify(res));
+    response.end();
+    // openai.summarizeTranscript(params[0], params[1]);
 };
 
 // exports to set functions to public.
@@ -47,4 +57,5 @@ module.exports = {
     getIndex,
     getCss,
     getJs,
+    summarizeTranscript,
 };
