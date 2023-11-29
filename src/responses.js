@@ -71,8 +71,10 @@ const summarizeTranscript = async (request, response) => {
     // console.log(formate);
 
     let transcript = await openai.transcribeAudio(filename);
-    let summary = await openai.summarizeTranscript(transcript, formate);
+    console.log(transcript);
 
+    let summary = await openai.summarizeTranscript(transcript, formate);
+    console.log(summary);
     let res = {
         "formate": formate,
         "url": request.url,
