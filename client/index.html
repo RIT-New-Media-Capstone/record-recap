@@ -40,7 +40,7 @@
 				<select id="formSelect"
 					class="w-28 px-2 mx-2 appearance-none rounded-none border-0 border-b-4 border-fuchsia-700">
 					<option value="paragraph">paragraph</option>
-					<option value="bulletPoint">bullet point</option>
+					<option value="bullet point">bullet point</option>
 				</select>
 				<p> style.</p>
 			</div>
@@ -58,6 +58,40 @@
 
 	<script>
 		const summarizeBtn = document.getElementById('summarizeBtn');
+		const recordBtn = document.getElementById('recordBtn');
+		const stopRecordBtn = document.getElementById('stopRecordBtn');
+
+		recordBtn.addEventListener('click', async () => {
+			console.log('clicked record');
+			const str = `/record`;
+
+			const response = await fetch(str, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			console.log("pressed record");
+
+			handleResponse(response);
+		});
+
+		stopRecordBtn.addEventListener('click', async () => {
+			console.log('clicked stop record');
+			const str = `/stopRecord`;
+
+			const response = await fetch(str, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			console.log("pressed stop record");
+
+			// handleResponse(response);
+		});
 
 		summarizeBtn.addEventListener('click', async () => {
 			//send dropdown to summarize endpoint
@@ -78,11 +112,16 @@
 
 			// summaryResponse.innerHTML = data.summary;
 		});
-		const handleResponse = async (response)=>{
+
+
+		const handleResponse = async (response) => {
 			console.log("handling response");
 			const data = await response.json();
 			console.log(data);
 			console.log("got data");
+
+			const summaryResponse = document.getElementById('summaryResponse');
+			summaryResponse.innerHTML = data.summary;
 		}
 	</script>
 </body>

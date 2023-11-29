@@ -9,18 +9,13 @@ const { Readable } = require('stream');
 const ffmpegPath = require('@ffmpeg-installer/ffmpeg');
 const { exec } = require('child_process');
 
-// import OpenAI from "openai";
-// import fs from 'fs';
-// import ffmpeg from 'fluent-ffmpeg';
-// import mic from 'mic';
-// import { Readable } from 'stream';
-// import ffmpegPath from '@ffmpeg-installer/ffmpeg';
-// import { exec } from 'child_process';
-
 //variables
 // const recordBtn = document.getElementById('recordBtn');
 // const summarizeBtn = document.getElementById('summarizeBtn');
 // const summaryDiv = document.getElementById('summaryResponse');
+
+let micInstance;
+let resolveFunc;
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -38,11 +33,13 @@ const recordAudio = (filename) => {
     // success or failure of the recording process
     return new Promise((resolve, reject) => {
         // a new micInstance is created using the mic package with specified configuration
-        const micInstance = mic({
+        micInstance = mic({
             rate: '16000', // sample rate in Hz
             channels: '1', // one audio channel (mono)
             fileType: 'wav',
         });
+
+        resolveFunc = resolve;
 
         // 5 minute max duration of the recording, in seconds
         const maxDuration = 5 * 60;
@@ -60,11 +57,9 @@ const recordAudio = (filename) => {
         console.log('Recording... Press Ctrl+C to stop.'); // indicate the recording started
 
         // add a listener for when ctrl+c is pressed
-        process.on('SIGINT', () => {
-            micInstance.stop();
-            console.log('Finished recording.'); // indicate the recording stopped
-            resolve(); // resolve the Promise
-        });
+        // process.on('SIGINT', () => {
+        //     stopRecording(); // stop recording
+        // });
 
         // add error listener
         micInputStream.on('error', (err) => {
@@ -73,6 +68,12 @@ const recordAudio = (filename) => {
         });
     });
 };
+
+const stopRecording = () => {
+    micInstance.stop();
+    console.log('Finished recording.'); // indicate the recording stopped
+    resolveFunc(); // resolve the Promise 
+}
 
 // Transcribes a recorded audio file using OpenAI's Whisper API
 // and returns the transcribed text as a string.
@@ -89,18 +90,16 @@ async function transcribeAudio(file) {
 // and returns the summary as a string.
 // Param: name of the file containing the text to summarize, formate of how to summarize
 async function summarizeTranscript(transcript, format) {
-    let test = "hi";
-    return test;
-    // const sum = await openai.chat.completions.create({
-    //     model: "gpt-3.5-turbo",
-    //     messages: [
-    //         { "role": "system", "content": format },
-    //         { "role": "user", "content": transcript }
-    //     ],
-    //     temperature: 0,
-    //     max_tokens: 1024,
-    // });
-    // return sum.choices[0].message.content;
+    const sum = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+            { "role": "system", "content": format },
+            { "role": "user", "content": transcript }
+        ],
+        temperature: 0,
+        max_tokens: 1024,
+    });
+    return sum.choices[0].message.content;
 }
 
 // Main function
@@ -128,6 +127,7 @@ const main = async () => {
 
 module.exports = {
     recordAudio,
+    stopRecording,
     transcribeAudio,
     summarizeTranscript,
     main,

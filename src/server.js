@@ -9,6 +9,8 @@ const urlStruct = {
     '/': responses.getIndex,
     '/dist/output.css': responses.getCss,
     '/openai-test.js': responses.getJs,
+    '/record': responses.recordAudio,
+    '/stopRecord': responses.stopRecord,
     '/summarize': responses.summarizeTranscript,
 };
 
