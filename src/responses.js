@@ -67,7 +67,7 @@ const summarizeTranscript = async (request, response) => {
 
     console.log(params);
     // let formae = "Summarize content you are provided in 2 bullet points.";
-    let formate = `Provide a ${params[0]} summary of the content you are provided in ${params[2]} style ${params[1]}.`;
+    let formate = `Provide a ${params[0]} summary of the content you are provided in ${params[2]} format and in the style of ${params[1]}.`;
     // console.log(formate);
 
     let transcript = await openai.transcribeAudio(filename);
