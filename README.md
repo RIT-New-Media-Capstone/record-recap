@@ -7,6 +7,7 @@ The user can change the length (short, medium, long), the style (regular, rap, Y
 The audio doesn't have to be re-recorded every time the user wants a new styled summary.
 
 ## How to run
+**Note: you will need to include your own OpenAI API key in a .env file or in openai-test.js equal to a variable called OPENAI_API_KEY**
 - Clone this repo
 - In the project terminal run the command "npm i" to install the node_modules folder
 - Run "npm start" and go to localhost:3000 in a browser
